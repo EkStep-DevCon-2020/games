@@ -9,8 +9,20 @@
  */
 const CONFIG = {
   TELEMETRY_URL: 'https://devcon.sunbirded.org/content/data/v1/telemetry',
-  METHOD: ['POST', 'PUT']
+  METHOD: ['POST', 'PUT'],
+  DID: '8ceeb01fd99a6c2723d67aaa649190ba',
+  IDEA_ID: 'IDE1'
 };
+
+/**
+ * @description : Generate UUID string
+ */
+uuidv4 = () => {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+  })
+}
 
 /**
  * @param  {String} method  : Request Method
@@ -20,6 +32,11 @@ const CONFIG = {
  * @description : Function to construct request object
  */
 constructRequestObject = (method, data) => {
+  data['mid']     =  uuidv4();
+  data['ets']     =  (new Date()).getTime();
+  data['did']     =  CONFIG.DID;
+  data['stallId'] =  'STA3';
+  data['ideaId']  =  CONFIG.IDEA_ID;
   try {
     if (CONFIG.METHOD.indexOf(method) < 0) constructErrorObject('Method Name mismatch', 'Invalid method name - ' + method);
     let _request = new Object();
