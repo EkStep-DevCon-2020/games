@@ -18,7 +18,15 @@
 // 	  });
 // }
 
+onlyGoal = {'query': "MATCH p=(e)-[*]->(r) WHERE NOT (r)-->() AND e.name = 'Users' AND r.name = 'goal_name' RETURN p", replace: ['goal_name']}
+onlySource = {'query': "MATCH p=(e)-[*]->(r) WHERE NOT (r)-->() AND e.name = 'source_name' RETURN p", replace: ['source_name']}
+bothSourceAndGoal = {'query': "MATCH p=(e)-[*]->(r) WHERE NOT (r)-->() AND e.name = 'source_name' AND r.name = 'goal_name' RETURN p", replace: ['source_name', 'goal_name']} 
+
 function getData() {
+	var source = ""; //dp.source.selection;
+	var goal_name = ""; //dp.goal.selection;
+	var present_role = ""; //
+	
 	$.ajax({
 		type: 'POST',
 		url: 'http://localhost:3000/career-path',
