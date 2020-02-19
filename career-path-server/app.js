@@ -29,6 +29,8 @@ app.post("/career-path", (req, res) => {
       request(httpOptions, function (err, httpResponse, body) {
         if (err) {
             return res.status(400).send({message: 'Error'});          
+        } else if (_.get(body, 'message')){
+            return res.status(500).send({message: _.get(body, 'message')});
         } else {
             return res.status(200).send(body);
         }

@@ -337,8 +337,6 @@ change = function(d) {
 		e.attr("d", path(2))
 	};
 };
-// draw();
-getData();
 
 //<!-- SAVE FUNCTION-->
 

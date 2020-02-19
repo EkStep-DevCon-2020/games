@@ -1,11 +1,13 @@
 <!DOCTYPE xhtml>
 <html xmlns="https://www.w3.org/1999/xhtml">
+
 <head>
     <meta http-equiv="content-Type" content="text/html; charset=utf-8" />
     <meta name="description" content="Sankey Diagram Generator #sankey #d3js @csaladenes" />
-    <meta name="keywords" content="csaladenes, sankey diagram, d3.js, d3js, sankey diagram maker, sankey diagram online, sankey generator, sankey diagram builder, sankey, sankey online, online sankey diagram maker, d3 sankey diagram, sankey creator, diagram generator, sankey chart generator, sankey diagram maker online, sankey diagram software, sankey diagramm, sankey diagram software free" />
+    <meta name="keywords"
+        content="csaladenes, sankey diagram, d3.js, d3js, sankey diagram maker, sankey diagram online, sankey generator, sankey diagram builder, sankey, sankey online, online sankey diagram maker, d3 sankey diagram, sankey creator, diagram generator, sankey chart generator, sankey diagram maker online, sankey diagram software, sankey diagramm, sankey diagram software free" />
     <!--<meta property="og:image" content="https://food.csaladen.es/favicon.png" />-->
-	<meta property="og:image" content="snapshot.jpg" />
+    <meta property="og:image" content="snapshot.jpg" />
     <meta property="og:description" content="Sankey Diagram Generator #sankey #d3js @csaladenes" />
     <meta property="og:title" content="Sankey Diagram" />
     <meta property="og:type" content="article" />
@@ -19,6 +21,7 @@
             font-family: "MyFont";
             src: url('Lato-Regular.ttf') format("truetype");
         }
+
         html,
         body {
             height: 100%;
@@ -27,22 +30,26 @@
             padding: 0;
             background: #fff;
         }
+
         #chart {
-            height: 99%;
+            height: 80%;
             float: left;
             position: absolute;
             width: -moz-calc(80% - 45px);
             width: -webkit-calc(80% - 45px);
             width: calc(80% - 45px);
         }
+
         a {
             text-decoration: none;
-			color: #F60;
+            color: #F60;
         }
-		a:hover {
+
+        a:hover {
             text-decoration: underline;
-			color: #F60;
+            color: #F60;
         }
+
         .pagetitle {
             height: 30px;
             color: #F60;
@@ -52,27 +59,32 @@
             font-weight: bold;
             font-style: oblique
         }
+
         .node rect {
             cursor: move;
             fill-opacity: .9;
             shape-rendering: crispEdges
         }
+
         .node text {
             pointer-events: none;
             text-shadow: 0 1px 0 #fff
         }
+
         .link {
             stroke: #000;
             stroke-opacity: .3;
         }
+
         .link:hover {
             stroke-opacity: .7;
         }
+
         #titlebar {
-				width: -moz-calc(80% - 90px);
-				width: -webkit-calc(80% - 90px);
-				width: calc(80% - 90px);
-				height: 30px;
+            width: -moz-calc(80% - 90px);
+            width: -webkit-calc(80% - 90px);
+            width: calc(80% - 90px);
+            height: 30px;
             border-bottom: solid;
             border-color: #EEE;
             padding-bottom: 5px;
@@ -81,6 +93,7 @@
             position: fixed;
             z-index: 50;
         }
+
         #titlebar-right {
             right: -moz-calc(20% + 50px);
             right: -webkit-calc(20% + 50px);
@@ -92,16 +105,19 @@
             position: fixed;
             z-index: 50;
         }
+
         .dragdealer {
             height: 30px;
             background: #EEE;
             z-index: 50;
         }
+
         .dragdealer .handle {
             top: 0;
             left: 0;
             cursor: pointer;
         }
+
         .dragdealer .red-bar {
             width: 100px;
             height: 30px;
@@ -113,9 +129,11 @@
             font-weight: bold;
             font-style: oblique
         }
+
         .dragdealer .red-bar:hover {
             background: #F60
         }
+
         .dragdealer .orange-bar {
             width: 25px;
             height: 18px;
@@ -126,68 +144,242 @@
             text-align: center;
             font-weight: bold;
         }
+
         .dragdealer .orange-bar:hover {
             background: #F60
         }
+
         .dragdealer .disabled {
             background: #898989
         }
-		#social {
-			position: fixed;
+
+        #social {
+            position: fixed;
             bottom: 5;
             right: 0;
             text-decoration: none;
-			padding: 3px;
-			padding-top:1px;
+            padding: 3px;
+            padding-top: 1px;
             z-index: 800;
-			white-space:nowrap;
-			overflow:hidden;
+            white-space: nowrap;
+            overflow: hidden;
         }
-		#social a{
-			margin-left:10px;
-			margin-right:5px;
-			color: #000;
+
+        #social a {
+            margin-left: 10px;
+            margin-right: 5px;
+            color: #000;
             font-size: 10px;
-            font-family: "MyFont";  
+            font-family: "MyFont";
             font-weight: lighter;
-            text-decoration: none;			
-		}
-		.likeform input {
-			width:100%; 
-			min-width:220px;
-			margin-top:5px;
-		}
-		.likeform2 input {
-			width: -moz-calc(100% - 13px);
+            text-decoration: none;
+        }
+
+        .likeform input {
+            width: 100%;
+            min-width: 220px;
+            margin-top: 5px;
+        }
+
+        .likeform2 input {
+            width: -moz-calc(100% - 13px);
             width: -webkit-calc(100% - 13px);
             width: calc(100% - 13px);
-			min-width:207px;
-		}
-		#pngdownloadwrapper:hover{
-			cursor:pointer;
-			text-decoration:underline;
-		}
+            min-width: 207px;
+        }
+
+        #pngdownloadwrapper:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+
+        /* 
+        @font-face {
+            font-family: boogaloo;
+            src: url(assets/fonts/boogaloo/Boogaloo-Regular.ttf);
+        }
+        body {
+            font-family: boogaloo;
+        } */
+        .dropdown-container {
+            padding: 16px;
+            background: linear-gradient(45deg, #F2F2F2, #dedede);
+            position: fixed;
+            right: 16px;
+            top: 16px;
+            z-index: 9;
+            box-shadow: 0 10px 6px -6px #777;
+            border-radius: 8px;
+        }
+
+        .dropdown-list {
+            display: flex;
+            align-items: center;
+            /* justify-content: center; */
+            padding-bottom: 8px;
+        }
+
+        .dropdown-list:last-child {
+            padding-bottom: 0;
+        }
+
+        .dropdown-name {
+            font-size: 12px;
+            margin-right: 8px;
+            color: #333;
+            /* flex: 1 50%; */
+            text-align: left;
+            width: 148px;
+        }
+
+        .dropbtn {
+            background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%);
+            background-color: #f6f6f6;
+            border-radius: 6px;
+            border: solid 1px #eee;
+            box-shadow: 0 1px 0 rgba(0, 0, 0, 0.0075);
+            box-sizing: border-box;
+            cursor: pointer;
+            display: block;
+            /* float: left; */
+            font-size: 12px;
+            font-weight: normal;
+            outline: none;
+            position: relative;
+            text-align: left !important;
+            transition: all 0.2s ease-in-out;
+            user-select: none;
+            white-space: nowrap;
+            min-width: 120px;
+            padding: 8px 0px 8px 16px;
+        }
+
+        .dropbtn::after {
+            height: 0;
+            width: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #777;
+            -webkit-transform: origin(50% 20%);
+            transform: origin(50% 20%);
+            transition: all 0.125s ease-in-out;
+            content: '';
+            display: block;
+            margin-top: -2px;
+            pointer-events: none;
+            position: absolute;
+            right: 10px;
+            top: 50%;
+        }
+
+        .dropbtn.open::after {
+            transform: rotate(-180deg);
+        }
+
+        .dropbtn:hover,
+        .dropbtn:focus {
+            background-color: #f0f0f0 !important;
+            border-color: #e4e4e4;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05) inset;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            position: absolute;
+            background-color: #f1f1f1;
+            width: auto;
+            min-width: 108px;
+            overflow: auto;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            top: 100%;
+        }
+
+        .dropdown-content a {
+            color: #333;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown-select {
+            /* flex: 1 50%; */
+            text-align: left;
+        }
+
+        .dropdown-btn {
+            white-space: nowrap;
+            user-select: none;
+            outline: 0;
+            display: inline-block;
+            border: 1px solid;
+            cursor: pointer;
+            min-width: auto;
+            border-radius: 3px;
+            position: relative;
+            text-transform: capitalize;
+            text-decoration: none;
+            border-color: #024f9d;
+            background-color: #024f9d;
+            color: #fff;
+            height: 32px;
+            font-size: 11.9994px;
+            padding: 8px 16px;
+            margin-right: 8px;
+        }
+
+        .dropdown-btn:hover {
+            background: #002e50;
+        }
+
+        .display-none {
+            display: none;
+        }
+
+        .display-block {
+            display: block;
+        }
+
+        .toggle {
+            width: 100%;
+            padding: 25px;
+            background-color: coral;
+            color: white;
+            font-size: 25px;
+            box-sizing: border-box;
+        }
     </style>
     <script src="js/jquery-3.4.1.min.js"></script>
     <script src="js/lodash.min.js"></script>
     <script src="js/dragdealer.js"></script>
     <script src="js/d3.v3.min.js"></script>
-	<script src="js/svgexport.js"></script>
+    <script src="js/svgexport.js"></script>
     <script>
         var sizecorrection = Math.max(0, 220 - parseInt(window.innerWidth * 0.2));
+
         function checksize() {
             if ((window.innerWidth < 600) || (window.innerHeight < 300)) {
-                alert("The recommended minimum resolution is 600 x 300.\n Yours is " + window.innerWidth + " x " + window.innerHeight + ".");
+                alert("The recommended minimum resolution is 600 x 300.\n Yours is " + window.innerWidth + " x " +
+                    window.innerHeight + ".");
             }
-			setTimeout(function(){
-				d3.select("#social").transition().style("opacity", 1);
-			},3000);
-		}
-		window.onresize = function() {
-			window.location.reload();
-		}
+            setTimeout(function () {
+                d3.select("#social").transition().style("opacity", 1);
+            }, 3000);
+        }
+        window.onresize = function () {
+            window.location.reload();
+        }
     </script>
-	<!-- <script>
+    <!-- <script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -197,66 +389,87 @@
 	  ga('send', 'pageview');
 
 	</script> -->
-	<script type="text/javascript">var switchTo5x=true;</script>
-	<script type="text/javascript" src="https://w.sharethis.com/button/buttons.js"></script>
-	<script type="text/javascript">stLight.options({publisher: "505a26ad-d820-47bd-a500-7f49d04a30f5", doNotHash: true, doNotCopy: false, hashAddressBar: false});</script>
-	</head>
+    <script type="text/javascript">
+        var switchTo5x = true;
+    </script>
+    <script type="text/javascript" src="https://w.sharethis.com/button/buttons.js"></script>
+    <script type="text/javascript">
+        stLight.options({
+            publisher: "505a26ad-d820-47bd-a500-7f49d04a30f5",
+            doNotHash: true,
+            doNotCopy: false,
+            hashAddressBar: false
+        });
+    </script>
+</head>
+
 <body onload="checksize();">
-	
-	<a id="pngdownload" href="" download="Sankey.png" style="visibility:hidden;display:none;position:fixed;top:0px;left:0px;width:0px;height:0px;"></a>
+
+    <a id="pngdownload" href="" download="Sankey.png"
+        style="visibility:hidden;display:none;position:fixed;top:0px;left:0px;width:0px;height:0px;"></a>
 
     <!--TITLELBAR-->
 
     <div id="titlebar" style="display: none;">
-		<span id="titletext" class="pagetitle">Sankey Diagram Generator</span>
-        <span id="titletext" class="pagetitle" style="positions:relative;float:right;right:30px;top:0px;"><a href="https://csaladenes.wordpress.com/2014/11/06/sankey-diagram-generator/" target="_blank">Help</a>&nbsp;|
-        <span id="titletext" class="pagetitle"><a href="https://github.com/csaladenes/sankey" target="_blank">Code</a></span>&nbsp;|
-		<span id="titletext" class="pagetitle"><a href="#" onclick="alert('Sankey Diagram Generator by Dénes Csala, based on the Sankey plugin for D3 by Mike Bostock; https://sankey.csaladen.es; 2014');">Cite</a></span>
+        <span id="titletext" class="pagetitle">Sankey Diagram Generator</span>
+        <span id="titletext" class="pagetitle" style="positions:relative;float:right;right:30px;top:0px;"><a
+                href="https://csaladenes.wordpress.com/2014/11/06/sankey-diagram-generator/"
+                target="_blank">Help</a>&nbsp;|
+            <span id="titletext" class="pagetitle"><a href="https://github.com/csaladenes/sankey"
+                    target="_blank">Code</a></span>&nbsp;|
+            <span id="titletext" class="pagetitle"><a href="#"
+                    onclick="alert('Sankey Diagram Generator by Dénes Csala, based on the Sankey plugin for D3 by Mike Bostock; https://sankey.csaladen.es; 2014');">Cite</a></span>
     </div>
-	
-	
-	<!--PAGE WRAPPER-->
+
+
+    <!--PAGE WRAPPER-->
 
     <div id="content" style="opacity:1;">
 
 
         <!--SANKEY DIAGRAM CONTROLS-->
 
-        <div id="sourcecontrol" style="display: none; float:right; margin-right:10px; width:20%; margin-top:10px; min-width:220px; border-left:solid; border-color:#EEE; height:98%; padding-left:20px;line-height:26px;z-index:600000;">
-			
+        <div id="sourcecontrol"
+            style="display: none; float:right; margin-right:10px; width:20%; margin-top:10px; min-width:220px; border-left:solid; border-color:#EEE; height:98%; padding-left:20px;line-height:26px;z-index:600000;">
+
             <!--LOAD-->
 
-			<div id="load" style="position:fixed;float:left;width:inherit;height:100%;background:#fff;color:#000;opacity:0;margin-top:0px;margin-left:0px;z-index:-1;">
-				<div>Please paste the Sankey string below:</div>
-				<textarea id="loadtext" style="margin-top:20px;margin-bottom:20px;width:97%;height:50%;"/></textarea> 
-				<div>
-					<button onclick="loadsubmit();">Done</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<span style="font-size:12px;">
-						<input title="Ignore fixed node positions on canvas, if provided" type="checkbox" id="ignorelayout">
-						<label for="ignorelayout">ignore layout</label>
-					</span>
-				</div>
-			</div>
-			
-			<!--SAVE-->
+            <div id="load"
+                style="position:fixed;float:left;width:inherit;height:100%;background:#fff;color:#000;opacity:0;margin-top:0px;margin-left:0px;z-index:-1;">
+                <div>Please paste the Sankey string below:</div>
+                <textarea id="loadtext" style="margin-top:20px;margin-bottom:20px;width:97%;height:50%;" /></textarea>
+                <div>
+                    <button onclick="loadsubmit();">Done</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span style="font-size:12px;">
+                        <input title="Ignore fixed node positions on canvas, if provided" type="checkbox"
+                            id="ignorelayout">
+                        <label for="ignorelayout">ignore layout</label>
+                    </span>
+                </div>
+            </div>
 
-			<div id="save" style="position:fixed;float:left;width:inherit;height:100%;background:#fff;color:#000;opacity:0;margin-top:0px;margin-left:0px;z-index:-1;">
-				<div>Please copy and save the text below to load later:</div>
-				<textarea id="savetext" style="margin-top:20px;margin-bottom:20px;width:97%;height:50%;"/></textarea> 
-				<div>
-					<button onclick="d3.select('#save').transition().style('opacity',0).style('z-index',-1)">Done</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					<span style="font-size:12px;">
-						<input title="Save node positions on canvas" type="checkbox" id="fixedlayout" onclick="save();">
-						<label for="fixedlayout">save layout</label>
-					</span>
-				</div>
-				<br/>
-				<div id="pngdownloadwrapper">Save image ⇓</div>
-			</div>
-			
-			<!--INCREMENTAL-->
-			
-            <div style="display:block;overflow: hidden;white-space: nowrap;"><span style="float:left;">Move nodes:</span>
+            <!--SAVE-->
+
+            <div id="save"
+                style="position:fixed;float:left;width:inherit;height:100%;background:#fff;color:#000;opacity:0;margin-top:0px;margin-left:0px;z-index:-1;">
+                <div>Please copy and save the text below to load later:</div>
+                <textarea id="savetext" style="margin-top:20px;margin-bottom:20px;width:97%;height:50%;" /></textarea>
+                <div>
+                    <button
+                        onclick="d3.select('#save').transition().style('opacity',0).style('z-index',-1)">Done</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span style="font-size:12px;">
+                        <input title="Save node positions on canvas" type="checkbox" id="fixedlayout" onclick="save();">
+                        <label for="fixedlayout">save layout</label>
+                    </span>
+                </div>
+                <br />
+                <div id="pngdownloadwrapper">Save image ⇓</div>
+            </div>
+
+            <!--INCREMENTAL-->
+
+            <div style="display:block;overflow: hidden;white-space: nowrap;"><span style="float:left;">Move
+                    nodes:</span>
                 <div style="float:right; padding-right:0; margin-right:0;">
                     <div style="font-size:20px;font-weight:bold;line-height:10px;">
                         <input title="Enable horizontal node dragging" type="checkbox" id="xmove">
@@ -267,7 +480,8 @@
                     </div>
                 </div>
             </div>
-			<div style="display:block;overflow: hidden;white-space: nowrap;"><span style="float:left;">Label nodes:</span>
+            <div style="display:block;overflow: hidden;white-space: nowrap;"><span style="float:left;">Label
+                    nodes:</span>
                 <div style="float:right; padding-right:0; margin-right:0;" onclick="draw();">
                     <div style="font-size:10px;">
                         <input title="Show node value sums" type="checkbox" id="vlabel" checked>
@@ -275,7 +489,7 @@
                         <img alt="" style="width:2px;height:0px;">
                         <input title="Show node labels" type="checkbox" id="tlabel" checked>
                         <label for="tlabel">text</label>
-						<img alt="" style="width:2px;height:0px;">
+                        <img alt="" style="width:2px;height:0px;">
                         <input title="Show node count balances" type="checkbox" id="clabel">
                         <label for="clabel">count</label>
                     </div>
@@ -283,14 +497,15 @@
             </div>
             <div style="display:block;overflow: hidden;white-space: nowrap;"><span style="float:left;">Density:</span>
                 <div style="float:right;">
-                    <div id="pslider" title="Drag slider to set diagram node padding" class="dragdealer" style="margin-top:2px;margin-left:-130px;width:130px; height:18px; position:absolute;">
+                    <div id="pslider" title="Drag slider to set diagram node padding" class="dragdealer"
+                        style="margin-top:2px;margin-left:-130px;width:130px; height:18px; position:absolute;">
                         <div class="handle orange-bar">↔
                             <script>
                                 var densityslider = new Dragdealer("pslider", {
                                     x: 0.5,
                                     steps: 5,
                                     snap: true,
-                                    callback: function(a, b) {
+                                    callback: function (a, b) {
                                         padding = paddingmultiplier * (1 - a) + 3;
                                         draw()
                                     }
@@ -302,14 +517,15 @@
             </div>
             <div style="display:block;overflow: hidden;white-space: nowrap;"><span style="float:left;">Opacity:</span>
                 <div style="float:right;">
-                    <div id="oslider" title="Drag slider to set diagram flow opacities" class="dragdealer" style="margin-top:2px;margin-left:-130px;width:130px; height:18px; position:absolute;">
+                    <div id="oslider" title="Drag slider to set diagram flow opacities" class="dragdealer"
+                        style="margin-top:2px;margin-left:-130px;width:130px; height:18px; position:absolute;">
                         <div class="handle orange-bar">↔
                             <script>
                                 var opacityslider = new Dragdealer("oslider", {
                                     x: 0.25,
                                     steps: 5,
                                     snap: true,
-                                    callback: function(a, b) {
+                                    callback: function (a, b) {
                                         lowopacity = 0.1 + 0.8 * a;
                                         draw()
                                     }
@@ -319,54 +535,161 @@
                     </div>
                 </div>
             </div>
-			<div style="display:block;overflow: hidden;white-space: nowrap;"><span style="float:left;">Decimals:</span>
+            <div style="display:block;overflow: hidden;white-space: nowrap;"><span style="float:left;">Decimals:</span>
                 <div style="float:right;">
-                    <span>Nodes: <input type="text" value='0' id="ndec" style="width:12px"/></span>
-					<span>Links: <input type="text" value='2' id='ldec' style="width:12px"/></span>
+                    <span>Nodes: <input type="text" value='0' id="ndec" style="width:12px" /></span>
+                    <span>Links: <input type="text" value='2' id='ldec' style="width:12px" /></span>
                 </div>
             </div>
-			<div style="display:block;overflow: hidden;white-space: nowrap;">
-				<div>
-					<button onclick="draw()" style="width:100%; min-width:220px; margin-top:20px;margin-bottom:20px;font-size:20px;">Draw Sankey</button>
-				</div>
-				<div style="margin-bottom:20px;display:block;overflow: hidden;white-space: nowrap;">
-				<span><button onclick="load()" style="width:45%; min-width:100px; float:left;">Load</button></span>
-				<span><button onclick="save()" style="width:45%; min-width:100px; float:right;">Save</button></span>
-				</div>
-				<div style="display:block;overflow: hidden;white-space: nowrap;">
-				<span><button onclick="addnode()" style="width:45%; min-width:100px; float:left;">Add new node</button></span>
-				<span><button onclick="removenode()" style="width:45%; min-width:100px; float:right;">Remove node</button></span>
-				</div>
-				<div class="likeform2" id="nodes-form">
-					<div>0&nbsp;<input type="text" value='{"name":"Oil"}'/></div>
-					<div>1&nbsp;<input type="text" value='{"name":"Natural Gas"}' /></div>
-					<div>2&nbsp;<input type="text" value='{"name":"Coal","fill":"seaGreen"}'/></div>
-					<div>3&nbsp;<input type="text" value='{"name":"Fossil Fuels","value":65,"layer":2}'/></div>
-					<div>4&nbsp;<input type="text" value='{"name":"Electricity","layer":2}'/></div>
-					<div>5&nbsp;<input type="text" value='{"name":"Energy","fill":"grey"}'/></div>
-				</div>
-			</div>
-			<div style="display:block;overflow: hidden;white-space: nowrap; margin-top:10px;">
-				<div style="display:block;overflow: hidden;white-space: nowrap;">
-				<span><button onclick="addlink()" style="width:45%; min-width:100px; float:left;">Add new link</button></span>
-				<span><button onclick="removelink()" style="width:45%; min-width:100px; float:right;">Remove link</button></span>
-				</div>
-				<div class="likeform" id="links-form" >
-					<div><input type="text" value='{"source":0,"target":3,"value":15,"fill":"blue"}'/></div>
-					<div><input type="text" value='{"source":1,"target":3,"value":20}'/></div>
-					<div><input type="text" value='{"source":2,"target":3,"value":25}'/></div>
-					<div><input type="text" value='{"source":2,"target":4,"value":25}'/></div>
-					<div><input type="text" value='{"source":3,"target":5,"value":60}'/></div>
-					<div><input type="text" value='{"source":4,"target":5,"value":25}'/></div>
-					<div><input type="text" value='{"source":4,"target":4,"value":5}'/></div>
-				</div>
-				<div style="display:block;overflow: hidden;white-space: nowrap; line-height:50px;">&nbsp;</div>
-			</div>
-			
+            <div style="display:block;overflow: hidden;white-space: nowrap;">
+                <div>
+                    <button onclick="draw()"
+                        style="width:100%; min-width:220px; margin-top:20px;margin-bottom:20px;font-size:20px;">Draw
+                        Sankey</button>
+                </div>
+                <div style="margin-bottom:20px;display:block;overflow: hidden;white-space: nowrap;">
+                    <span><button onclick="load()" style="width:45%; min-width:100px; float:left;">Load</button></span>
+                    <span><button onclick="save()" style="width:45%; min-width:100px; float:right;">Save</button></span>
+                </div>
+                <div style="display:block;overflow: hidden;white-space: nowrap;">
+                    <span><button onclick="addnode()" style="width:45%; min-width:100px; float:left;">Add new
+                            node</button></span>
+                    <span><button onclick="removenode()" style="width:45%; min-width:100px; float:right;">Remove
+                            node</button></span>
+                </div>
+                <div class="likeform2" id="nodes-form">
+                    <div>0&nbsp;<input type="text" value='{"name":"Oil"}' /></div>
+                    <div>1&nbsp;<input type="text" value='{"name":"Natural Gas"}' /></div>
+                    <div>2&nbsp;<input type="text" value='{"name":"Coal","fill":"seaGreen"}' /></div>
+                    <div>3&nbsp;<input type="text" value='{"name":"Fossil Fuels","value":65,"layer":2}' /></div>
+                    <div>4&nbsp;<input type="text" value='{"name":"Electricity","layer":2}' /></div>
+                    <div>5&nbsp;<input type="text" value='{"name":"Energy","fill":"grey"}' /></div>
+                </div>
+            </div>
+            <div style="display:block;overflow: hidden;white-space: nowrap; margin-top:10px;">
+                <div style="display:block;overflow: hidden;white-space: nowrap;">
+                    <span><button onclick="addlink()" style="width:45%; min-width:100px; float:left;">Add new
+                            link</button></span>
+                    <span><button onclick="removelink()" style="width:45%; min-width:100px; float:right;">Remove
+                            link</button></span>
+                </div>
+                <div class="likeform" id="links-form">
+                    <div><input type="text" value='{"source":0,"target":3,"value":15,"fill":"blue"}' /></div>
+                    <div><input type="text" value='{"source":1,"target":3,"value":20}' /></div>
+                    <div><input type="text" value='{"source":2,"target":3,"value":25}' /></div>
+                    <div><input type="text" value='{"source":2,"target":4,"value":25}' /></div>
+                    <div><input type="text" value='{"source":3,"target":5,"value":60}' /></div>
+                    <div><input type="text" value='{"source":4,"target":5,"value":25}' /></div>
+                    <div><input type="text" value='{"source":4,"target":4,"value":5}' /></div>
+                </div>
+                <div style="display:block;overflow: hidden;white-space: nowrap; line-height:50px;">&nbsp;</div>
+            </div>
+
         </div>
 
-       
+
+<div>
+        <button onclick="toggle()" class="dropdown-btn" style="position: fixed; right: 0;top: 24px; right: 24px; z-index: 10;">+</button>
+
+        <div class="dropdown-container" id="career-div">
+            <div class="dropdown-list">
+                <label class="dropdown-name">I am studying/studied:</label>
+                <div class="dropdown-select">
+                    <select id="education" class="dropbtn">
+                        <option value="">-- Select --</option>
+                        <option value="B.E">B.E</option>
+                        <option value="B.Tech">B.Tech</option>
+                        <option value="B.Sc">B.Sc</option>
+                        <option value="MCA">MCA</option>
+                    </select>
+                </div>
+            </div>
+            <div class="dropdown-list">
+                <label class="dropdown-name">I am a/an:</label>
+                <div class="dropdown-select">
+                    <select id="profession" class="dropbtn">
+                        <option value="">-- Select --</option>
+                        <option value="Java Programmer">Java Programmer</option>
+                        <option value="Full Stack Engineer">Full Stack Engineer</option>
+                        <option value="Software Engineer">Software Engineer</option>
+                        <option value=".Net Progrommer">.Net Progrommer</option>
+                        <option value="DevOps engineer">DevOps engineer</option>
+                        <option value="Web Programmer">Web Programmer</option>
+                        <option value="Intern">Intern</option>
+                        <option value="Devops Engineer">Devops Engineer</option>
+                        <option value="QA Engineer">QA Engineer</option>
+                        <option value="Senior Software Engineer">Senior Software Engineer</option>
+                        <option value="Programmer Analyst">Programmer Analyst</option>
+                        <option value="Software Engineer Trainee">Software Engineer Trainee</option>
+                        <option value="Mobile App Developer(Android)">Mobile App Developer(Android)</option>
+                        <option value="Senior Java Programmer">Senior Java Programmer</option>
+                        <option value="QA Lead">QA Lead</option>
+                        <option value="DB Engineer">DB Engineer</option>
+                        <option value="Principal Architect">Principal Architect</option>
+                        <option value="Web Tech Lead">Web Tech Lead</option>
+                        <option value="Lead Software Engg">Lead Software Engg</option>
+                        <option value="Web Tech Architect">Web Tech Architect</option>
+                        <option value="Principal Software Engineer">Principal Software Engineer</option>
+                        <option value="Tech Manager">Tech Manager</option>
+                        <option value="Tech Lead">Tech Lead</option>
+                        <option value="Technology Architect">Technology Architect</option>
+                        <option value="Senior Associate">Senior Associate</option>
+                        <option value="Web Senior Developer">Web Senior Developer</option>
+                        <option value="Mobility Lead(Android)">Mobility Lead(Android)</option>
+                        <option value="Systems Engineer">Systems Engineer</option>
+                    </select>
+                </div>
+            </div>
+            <div class="dropdown-list">
+                <label class="dropdown-name">I want to become a/an:</label>
+                <div class="dropdown-select">
+                    <select id="aim" class="dropbtn">
+                        <option value="">-- Select --</option>
+                        <option value="Java Programmer">Java Programmer</option>
+                        <option value="Full Stack Engineer">Full Stack Engineer</option>
+                        <option value="Software Engineer">Software Engineer</option>
+                        <option value=".Net Progrommer">.Net Progrommer</option>
+                        <option value="DevOps engineer">DevOps engineer</option>
+                        <option value="Web Programmer">Web Programmer</option>
+                        <option value="Intern">Intern</option>
+                        <option value="Devops Engineer">Devops Engineer</option>
+                        <option value="QA Engineer">QA Engineer</option>
+                        <option value="Senior Software Engineer">Senior Software Engineer</option>
+                        <option value="Programmer Analyst">Programmer Analyst</option>
+                        <option value="Software Engineer Trainee">Software Engineer Trainee</option>
+                        <option value="Mobile App Developer(Android)">Mobile App Developer(Android)</option>
+                        <option value="Senior Java Programmer">Senior Java Programmer</option>
+                        <option value="QA Lead">QA Lead</option>
+                        <option value="DB Engineer">DB Engineer</option>
+                        <option value="Principal Architect">Principal Architect</option>
+                        <option value="Web Tech Lead">Web Tech Lead</option>
+                        <option value="Lead Software Engg">Lead Software Engg</option>
+                        <option value="Web Tech Architect">Web Tech Architect</option>
+                        <option value="Principal Software Engineer">Principal Software Engineer</option>
+                        <option value="Tech Manager">Tech Manager</option>
+                        <option value="Tech Lead">Tech Lead</option>
+                        <option value="Technology Architect">Technology Architect</option>
+                        <option value="Senior Associate">Senior Associate</option>
+                        <option value="Web Senior Developer">Web Senior Developer</option>
+                        <option value="Mobility Lead(Android)">Mobility Lead(Android)</option>
+                        <option value="Systems Engineer">Systems Engineer</option>
+                    </select>
+                </div>
+            </div>
+            <div class="dropdown-list">
+                <button class="dropdown-btn" type="button" onclick="getOption()">Guide me</button>
+                <button class="dropdown-btn" type="button" onclick="reset()">Reset</button>
+            </div>
+
+        </div>
+
+    </div>
+
+        <div id="no-records" class="display-none">No records found...</div>
+
+
         <!--SANKEY DIAGRAM-->
+
 
         <div id="chart" style="z-index:5; position:fixed;"></div>
 
@@ -375,21 +698,22 @@
         <script src="js/sankey.js"></script>
         <script src="js/server-data.js"></script>
         <script src="js/food.js"></script>
-	
+
     </div>
-	
-	<!--SOCIAL-->
-	
-	<div id="social" style="display: none; opacity:0; z-index:800;">
-		<span class='st_facebook'></span>
-		<span class='st_twitter'></span>
-		<span class='st_googleplus'></span>
-		<span class='st_linkedin'></span>
-		<span class='st_tumblr'></span>
-		<span class='st_reddit'></span>
-		<span class='st_email'></span>
-		<span><a href="https://www.csaladen.es" title="created by" alt="created by">CC D.C. 2014</a></span>
-	</div>
-	
-	</body>
+
+    <!--SOCIAL-->
+
+    <div id="social" style="display: none; opacity:0; z-index:800;">
+        <span class='st_facebook'></span>
+        <span class='st_twitter'></span>
+        <span class='st_googleplus'></span>
+        <span class='st_linkedin'></span>
+        <span class='st_tumblr'></span>
+        <span class='st_reddit'></span>
+        <span class='st_email'></span>
+        <span><a href="https://www.csaladen.es" title="created by" alt="created by">CC D.C. 2014</a></span>
+    </div>
+
+</body>
+
 </html>
