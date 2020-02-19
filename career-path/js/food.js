@@ -15,6 +15,8 @@ D3.js http://d3js.org/  data-oriented javascript framework.
 
 var data={"nodes": [], "links": []}
 
+var nodeMap = {}
+
 //<!--DATA ENTRY-->
 
 nodesform=d3.select("#nodes-form");
@@ -34,7 +36,6 @@ function removelink() {
 	linksform[0][0].children[linksform[0][0].children.length-1].remove("div")
 }
 function draw() {
-	
 	data={"nodes": [], "links": []}
 	// data = {"nodes":[{"name":"Oil"},{"name":"Natural Gas"},{"name":"Coal","fill":"seaGreen"},{"name":"Fossil Fuels","value":65,"layer":2},{"name":"Electricity","layer":2},{"name":"Energy","fill":"grey"},{"name":"wind","fill":"green"}],"links":[{"source":0,"target":3,"value":15,"fill":"blue"},{"source":6,"target":4,"value":15},{"source":1,"target":3,"value":20},{"source":2,"target":3,"value":25},{"source":2,"target":4,"value":25},{"source":3,"target":5,"value":60},{"source":4,"target":5,"value":50}]}
 	// data = {"nodes":[{"name":"Maths","fill":"grey"},{"name":"science"},{"name":"12th Commerce","layer":1,"fill":"grey"},{"name":"12th PCM","layer":1},{"name":"12th PCMB","layer":1,"fill":"grey"},{"name":"BE","layer":2},{"name":"BSC","layer":2,"fill":"grey"},{"name":"B.com","layer":2,"fill":"grey"},{"name":"CA","fill":"grey"},{"name":"MSC","fill":"grey"},{"name":"M.Tech"},{"name":"BE","layer":3}],"links":[{"source":0,"target":2,"value":45},{"source":1,"target":3,"value":45},{"source":2,"target":7,"value":45},{"source":7,"target":8,"value":45},{"source":6,"target":9,"value":55},{"source":5,"target":10,"value":35},{"source":3,"target":5,"value":25},{"source":3,"target":6,"value":20,"fill":"grey"},{"source":4,"target":6,"value":35},{"source":4,"target":5,"value":10},{"source":1,"target":4,"value":45,"fill":"grey"}, {"source":6,"target":11,"value":10}]}
@@ -48,36 +49,32 @@ function draw() {
 	// }
 	change(data);
 }
-
-var nodeMap = {}
-function parseData(){
-	var convertedData = {nodes: [], links: []};
-	var careerPath = {"nodes":[{"name":"Class 10","id":"956236"},{"name":"Class 12","id":"956243"},{"name":"ME","id":"956238"},{"name":"Software Engineer","id":"956237"},{"name":"Senior SE","id":"956245"},{"name":"TM","id":"956239"},{"name":"TCE","id":"956244"},{"name":"CSE","id":"956226"}],"relations":[{"relId":"812180","endId":"956243","startId":"956236","noOfPeople":"9"},{"relId":"812274","endId":"956238","startId":"956243","noOfPeople":"1"},{"relId":"812176","endId":"956237","startId":"956238","noOfPeople":"1"},{"relId":"812192","endId":"956245","startId":"956237","noOfPeople":"4"},{"relId":"812275","endId":"956239","startId":"956245","noOfPeople":"1"},{"relId":"812272","endId":"956244","startId":"956243","noOfPeople":"1"},{"relId":"812172","endId":"956237","startId":"956244","noOfPeople":"1"},{"relId":"812271","endId":"956226","startId":"956243","noOfPeople":"4"},{"relId":"812182","endId":"956237","startId":"956226","noOfPeople":"3"}]}
-	
-	var nodesLen = careerPath.nodes.length;
-	for (i = 0; i < nodesLen; i++){
-		var node = careerPath.nodes[i];
-		convertedData.nodes.push({"name" : node.name});
-		nodeMap[node.id] = {index: i, name: node.name};
+  
+  /**
+   * @param  {String} method  : Request Method
+   * @param  {Object} data    : Request body or data
+   * @returns {Object}        : _request
+   * @throws {Exception}      : If method is invalid
+   * @description : Function to construct request object
+   */
+  constructRequestObject = (method, data) => {
+	try {
+	  if (CONFIG.METHOD.indexOf(method) < 0) constructErrorObject('Method Name mismatch', 'Invalid method name - ' + method);
+	  let _request = new Object();
+	  _request.url = CONFIG.TELEMETRY_URL;
+	  _request.type = method;
+	  _request.data = JSON.stringify(data);
+	  _request.contentType = 'application/json';
+	  _request.headers = {
+		'Access-Control-Allow-Origin': '*',
+		'Access-Control-Allow-Methods': 'GET',
+		'Access-Control-Allow-Headers': '*'
+	  };
+	  return _request;
+	} catch (error) {
+	  throw new Error(error);
 	}
-
-	var relationesLen = careerPath.relations.length;
-	for (j = 0; j < relationesLen; j++){
-		var relation = careerPath.relations[j];
-		var link = {};
-		link.source = getNodeIndex(relation.startId);
-		link.target = getNodeIndex(relation.endId);
-		link.value = relation.noOfPeople;
-
-		convertedData.links.push(link);
-	}
-	
-	return convertedData;
-}
-
-function getNodeIndex(nodeId){
-	return nodeMap[nodeId].index;
-}
+  };
 
 function save(){
 	d3.select('#save').style('z-index',100).transition().style('opacity',0.9);
@@ -339,7 +336,8 @@ change = function(d) {
 		e.attr("d", path(2))
 	};
 };
-draw();
+// draw();
+getData();
 
 //<!-- SAVE FUNCTION-->
 
