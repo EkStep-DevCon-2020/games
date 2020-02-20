@@ -1,9 +1,44 @@
-// var $ = require("jquery");
 var education, profession, aim, query;
 
 function reset() {
 	location.reload();
 }
+
+function getMentorsData() {
+	$.ajax({
+		type: 'POST',
+		url: 'http://localhost:3000/career-path',
+		contentType: 'application/json',
+		data:  JSON.stringify({
+			"query": "MATCH (p:Person) WHERE (p.ClassX_Place = {location} OR p.ClassXII_Place = {location} OR p.Graduation_Place = {location} OR p.Masters_Place = {location}) AND (p.Job1_Role = {role} OR p.Job2_Role = {role} OR p.Job3_Role = {role} OR p.Job4_Role = {role} OR p.Job5_Role = {role} OR p.Job6_Role = {role}) return p.name, p.Graduation_Degree, p.Masters_Degree, p.Job1_Role, p.Job2_Role, p.Job3_Role, p.Job4_Role, p.Job5_Role, p.Job6_Role",
+			"params": {
+				"location": "Bengaluru",
+				"role": "Software Engineer"
+			}
+		}),
+		success: (response) => {},
+		error: (error) => {
+			console.log("Data failed");
+		},
+		complete: (resp) => {
+			console.log('DB response mentor data: ', resp.responseJSON);
+		},
+	});
+}
+
+getMentorsData();
+
+sortDropDownListByText('education');
+sortDropDownListByText('profession');
+sortDropDownListByText('aim');
+
+function sortDropDownListByText(selectId) {
+    var foption = $('#'+ selectId + ' option:first');
+    var soptions = $('#'+ selectId + ' option:not(:first)').sort(function(a, b) {
+       return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+    });
+    $('#' + selectId).html(soptions).prepend(foption);              
+};
 
 function toggle() {
 	var x = document.getElementById("career-div");
@@ -45,6 +80,7 @@ function getOption() {
 function getData() {
 	$.ajax({
 		type: 'POST',
+		dataType: "json",
 		url: 'http://localhost:3000/career-path',
 		data: {
 			"query": query
