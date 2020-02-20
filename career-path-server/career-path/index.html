@@ -349,13 +349,40 @@
             display: block;
         }
 
-        .toggle {
-            width: 100%;
-            padding: 25px;
-            background-color: coral;
-            color: white;
-            font-size: 25px;
-            box-sizing: border-box;
+        .tab {
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background-color: #f1f1f1;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.3s;
+            font-size: 17px;
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 6px 12px;
+            border: 1px solid #ccc;
+            border-top: none;
         }
     </style>
     <script src="js/jquery-3.4.1.min.js"></script>
@@ -586,114 +613,244 @@
             </div>
 
         </div>
-
-
-<div>
-        <button onclick="toggle()" class="dropdown-btn" style="position: fixed; right: 0;top: 24px; right: 24px; z-index: 10;">+</button>
-
-        <div class="dropdown-container" id="career-div">
-            <div class="dropdown-list">
-                <label class="dropdown-name">I am studying/studied:</label>
-                <div class="dropdown-select">
-                    <select id="education" class="dropbtn">
-                        <option value="">-- Select --</option>
-                        <option value="B.E">B.E</option>
-                        <option value="B.Tech">B.Tech</option>
-                        <option value="B.Sc">B.Sc</option>
-                        <option value="MCA">MCA</option>
-                    </select>
-                </div>
-            </div>
-            <div class="dropdown-list">
-                <label class="dropdown-name">I am a/an:</label>
-                <div class="dropdown-select">
-                    <select id="profession" class="dropbtn">
-                        <option value="">-- Select --</option>
-                        <option value="Java Programmer">Java Programmer</option>
-                        <option value="Full Stack Engineer">Full Stack Engineer</option>
-                        <option value="Software Engineer">Software Engineer</option>
-                        <option value=".Net Progrommer">.Net Progrommer</option>
-                        <option value="DevOps engineer">DevOps engineer</option>
-                        <option value="Web Programmer">Web Programmer</option>
-                        <option value="Intern">Intern</option>
-                        <option value="Devops Engineer">Devops Engineer</option>
-                        <option value="QA Engineer">QA Engineer</option>
-                        <option value="Senior Software Engineer">Senior Software Engineer</option>
-                        <option value="Programmer Analyst">Programmer Analyst</option>
-                        <option value="Software Engineer Trainee">Software Engineer Trainee</option>
-                        <option value="Mobile App Developer(Android)">Mobile App Developer(Android)</option>
-                        <option value="Senior Java Programmer">Senior Java Programmer</option>
-                        <option value="QA Lead">QA Lead</option>
-                        <option value="DB Engineer">DB Engineer</option>
-                        <option value="Principal Architect">Principal Architect</option>
-                        <option value="Web Tech Lead">Web Tech Lead</option>
-                        <option value="Lead Software Engg">Lead Software Engg</option>
-                        <option value="Web Tech Architect">Web Tech Architect</option>
-                        <option value="Principal Software Engineer">Principal Software Engineer</option>
-                        <option value="Tech Manager">Tech Manager</option>
-                        <option value="Tech Lead">Tech Lead</option>
-                        <option value="Technology Architect">Technology Architect</option>
-                        <option value="Senior Associate">Senior Associate</option>
-                        <option value="Web Senior Developer">Web Senior Developer</option>
-                        <option value="Mobility Lead(Android)">Mobility Lead(Android)</option>
-                        <option value="Systems Engineer">Systems Engineer</option>
-                    </select>
-                </div>
-            </div>
-            <div class="dropdown-list">
-                <label class="dropdown-name">I want to become a/an:</label>
-                <div class="dropdown-select">
-                    <select id="aim" class="dropbtn">
-                        <option value="">-- Select --</option>
-                        <option value="Java Programmer">Java Programmer</option>
-                        <option value="Full Stack Engineer">Full Stack Engineer</option>
-                        <option value="Software Engineer">Software Engineer</option>
-                        <option value=".Net Progrommer">.Net Progrommer</option>
-                        <option value="DevOps engineer">DevOps engineer</option>
-                        <option value="Web Programmer">Web Programmer</option>
-                        <option value="Intern">Intern</option>
-                        <option value="Devops Engineer">Devops Engineer</option>
-                        <option value="QA Engineer">QA Engineer</option>
-                        <option value="Senior Software Engineer">Senior Software Engineer</option>
-                        <option value="Programmer Analyst">Programmer Analyst</option>
-                        <option value="Software Engineer Trainee">Software Engineer Trainee</option>
-                        <option value="Mobile App Developer(Android)">Mobile App Developer(Android)</option>
-                        <option value="Senior Java Programmer">Senior Java Programmer</option>
-                        <option value="QA Lead">QA Lead</option>
-                        <option value="DB Engineer">DB Engineer</option>
-                        <option value="Principal Architect">Principal Architect</option>
-                        <option value="Web Tech Lead">Web Tech Lead</option>
-                        <option value="Lead Software Engg">Lead Software Engg</option>
-                        <option value="Web Tech Architect">Web Tech Architect</option>
-                        <option value="Principal Software Engineer">Principal Software Engineer</option>
-                        <option value="Tech Manager">Tech Manager</option>
-                        <option value="Tech Lead">Tech Lead</option>
-                        <option value="Technology Architect">Technology Architect</option>
-                        <option value="Senior Associate">Senior Associate</option>
-                        <option value="Web Senior Developer">Web Senior Developer</option>
-                        <option value="Mobility Lead(Android)">Mobility Lead(Android)</option>
-                        <option value="Systems Engineer">Systems Engineer</option>
-                    </select>
-                </div>
-            </div>
-            <div class="dropdown-list">
-                <button class="dropdown-btn" type="button" onclick="getOption()">Guide me</button>
-                <button class="dropdown-btn" type="button" onclick="reset()">Reset</button>
-            </div>
+        <div class="tab">
+            <button class="tablinks active" onclick="opentab(event, 'Cp')">Carrier Path</button>
+            <button class="tablinks" onclick="opentab(event, 'Mp')">Mentor Path</button>
 
         </div>
+        <div id="Cp" class="tabcontent">
+            <div>
+                <button onclick="toggle()" class="dropdown-btn"
+                    style="position: fixed; right: 0;top: 24px; right: 24px; z-index: 10;">+</button>
 
-    </div>
+                <div class="dropdown-container" id="career-div">
+                    <div class="dropdown-list">
+                        <label class="dropdown-name">I am studying/studied:</label>
+                        <div class="dropdown-select">
+                            <select id="education" class="dropbtn">
+                                <option value="">-- Select --</option>
+                                <option value="B.E">B.E</option>
+                                <option value="B.Tech">B.Tech</option>
+                                <option value="B.Sc">B.Sc</option>
+                                <option value="MCA">MCA</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="dropdown-list">
+                        <label class="dropdown-name">I am a/an:</label>
+                        <div class="dropdown-select">
+                            <select id="profession" class="dropbtn">
+                                <option value="">-- Select --</option>
+                                <option value="Java Programmer">Java Programmer</option>
+                                <option value="Full Stack Engineer">Full Stack Engineer</option>
+                                <option value="Software Engineer">Software Engineer</option>
+                                <option value=".Net Progrommer">.Net Progrommer</option>
+                                <option value="DevOps engineer">DevOps engineer</option>
+                                <option value="Web Programmer">Web Programmer</option>
+                                <option value="Intern">Intern</option>
+                                <option value="Devops Engineer">Devops Engineer</option>
+                                <option value="QA Engineer">QA Engineer</option>
+                                <option value="Senior Software Engineer">Senior Software Engineer</option>
+                                <option value="Programmer Analyst">Programmer Analyst</option>
+                                <option value="Software Engineer Trainee">Software Engineer Trainee</option>
+                                <option value="Mobile App Developer(Android)">Mobile App Developer(Android)</option>
+                                <option value="Senior Java Programmer">Senior Java Programmer</option>
+                                <option value="QA Lead">QA Lead</option>
+                                <option value="DB Engineer">DB Engineer</option>
+                                <option value="Principal Architect">Principal Architect</option>
+                                <option value="Web Tech Lead">Web Tech Lead</option>
+                                <option value="Lead Software Engg">Lead Software Engg</option>
+                                <option value="Web Tech Architect">Web Tech Architect</option>
+                                <option value="Principal Software Engineer">Principal Software Engineer</option>
+                                <option value="Tech Manager">Tech Manager</option>
+                                <option value="Tech Lead">Tech Lead</option>
+                                <option value="Technology Architect">Technology Architect</option>
+                                <option value="Senior Associate">Senior Associate</option>
+                                <option value="Web Senior Developer">Web Senior Developer</option>
+                                <option value="Mobility Lead(Android)">Mobility Lead(Android)</option>
+                                <option value="Systems Engineer">Systems Engineer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="dropdown-list">
+                        <label class="dropdown-name">I want to become a/an:</label>
+                        <div class="dropdown-select">
+                            <select id="aim" class="dropbtn">
+                                <option value="">-- Select --</option>
+                                <option value="Java Programmer">Java Programmer</option>
+                                <option value="Full Stack Engineer">Full Stack Engineer</option>
+                                <option value="Software Engineer">Software Engineer</option>
+                                <option value=".Net Progrommer">.Net Progrommer</option>
+                                <option value="DevOps engineer">DevOps engineer</option>
+                                <option value="Web Programmer">Web Programmer</option>
+                                <option value="Intern">Intern</option>
+                                <option value="Devops Engineer">Devops Engineer</option>
+                                <option value="QA Engineer">QA Engineer</option>
+                                <option value="Senior Software Engineer">Senior Software Engineer</option>
+                                <option value="Programmer Analyst">Programmer Analyst</option>
+                                <option value="Software Engineer Trainee">Software Engineer Trainee</option>
+                                <option value="Mobile App Developer(Android)">Mobile App Developer(Android)</option>
+                                <option value="Senior Java Programmer">Senior Java Programmer</option>
+                                <option value="QA Lead">QA Lead</option>
+                                <option value="DB Engineer">DB Engineer</option>
+                                <option value="Principal Architect">Principal Architect</option>
+                                <option value="Web Tech Lead">Web Tech Lead</option>
+                                <option value="Lead Software Engg">Lead Software Engg</option>
+                                <option value="Web Tech Architect">Web Tech Architect</option>
+                                <option value="Principal Software Engineer">Principal Software Engineer</option>
+                                <option value="Tech Manager">Tech Manager</option>
+                                <option value="Tech Lead">Tech Lead</option>
+                                <option value="Technology Architect">Technology Architect</option>
+                                <option value="Senior Associate">Senior Associate</option>
+                                <option value="Web Senior Developer">Web Senior Developer</option>
+                                <option value="Mobility Lead(Android)">Mobility Lead(Android)</option>
+                                <option value="Systems Engineer">Systems Engineer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="dropdown-list">
+                        <button class="dropdown-btn" type="button" onclick="getOption()">Guide me</button>
+                        <button class="dropdown-btn" type="button" onclick="reset()">Reset</button>
+                    </div>
 
-        <div id="no-records" class="display-none">No records found...</div>
+                </div>
 
+            </div>
+            <div id="no-records" class="display-none">No records found...</div>
+            <div id="chart" style="z-index:5; position:fixed;"></div>
+        </div>
 
-        <!--SANKEY DIAGRAM-->
+        <div id="Mp" class="tabcontent">
+            <div>
+                <button onclick="toggle()" class="dropdown-btn"
+                    style="position: fixed; right: 0;top: 24px; right: 24px; z-index: 10;">+</button>
 
+                <div class="dropdown-container" id="career-div">
+                    <div class="dropdown-list">
+                        <label class="dropdown-name">I am from</label>
+                        <div class="dropdown-select">
+                            <select id="place" class="dropbtn">
+                                <option value="">-- Select --</option>
+                                <option value="Bengaluru">Bengaluru</option>
+                                <option value="Jhansi">Jhansi</option>
+                                <option value="Khammam">Khammam</option>
+                                <option value="Cochin">Cochin</option>
+                                <option value="Kolar">Kolar</option>
+                                <option value="Chitrakoot">Chitrakoot</option>
+                                <option value="Mandya">Mandya</option>
+                                <option value="Agartala">Agartala</option>
+                                <option value="Khordha">Khordha</option>
+                                <option value="Navalgund">Navalgund</option>
+                                <option value="Domakonda">Domakonda</option>
+                                <option value="Kakinada">Kakinada</option>
+                                <option value="Delhi">Delhi</option>
+                                <option value="Salem">Salem</option>
+                                <option value="Burdwan">Burdwan</option>
+                                <option value="Nanjangud">Nanjangud</option>
+                                <option value="Proddatur">Proddatur</option>
+                                <option value="Tuni">Tuni</option>
+                                <option value="Mangalore">Mangalore</option>
+                                <option value="punganur">punganur</option>
+                                <option value="Raipur">Raipur</option>
+                                <option value="Jabalpur">Jabalpur</option>
+                                <option value="Hyderabad">Hyderabad</option>
+                                <option value="Cuttack">Cuttack</option>
+                                <option value="Dharwad">Dharwad</option>
+                                <option value="Kamareddy">Kamareddy</option>
+                                <option value="Visakhapatnam">Visakhapatnam</option>
+                                <option value="Tirupathi">Tirupathi</option>
+                                <option value="Ghaziabad">Ghaziabad</option>
+                                <option value="Bhopal">Bhopal</option>
+                                <option value="Chennai">Chennai</option>
+                                <option value="Dhenkanal">Dhenkanal</option>
+                                <option value="Mysore">Mysore</option>
+                                <option value="Indore">Indore</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- <div class="dropdown-list">
+                        <label class="dropdown-name">I want to become:</label>
+                        <div class="dropdown-select">
+                            <select id="profession" class="dropbtn">
+                                <option value="">-- Select --</option>
+                                <option value="Java Programmer">Java Programmer</option>
+                                <option value="Full Stack Engineer">Full Stack Engineer</option>
+                                <option value="Software Engineer">Software Engineer</option>
+                                <option value=".Net Progrommer">.Net Progrommer</option>
+                                <option value="DevOps engineer">DevOps engineer</option>
+                                <option value="Web Programmer">Web Programmer</option>
+                                <option value="Intern">Intern</option>
+                                <option value="Devops Engineer">Devops Engineer</option>
+                                <option value="QA Engineer">QA Engineer</option>
+                                <option value="Senior Software Engineer">Senior Software Engineer</option>
+                                <option value="Programmer Analyst">Programmer Analyst</option>
+                                <option value="Software Engineer Trainee">Software Engineer Trainee</option>
+                                <option value="Mobile App Developer(Android)">Mobile App Developer(Android)</option>
+                                <option value="Senior Java Programmer">Senior Java Programmer</option>
+                                <option value="QA Lead">QA Lead</option>
+                                <option value="DB Engineer">DB Engineer</option>
+                                <option value="Principal Architect">Principal Architect</option>
+                                <option value="Web Tech Lead">Web Tech Lead</option>
+                                <option value="Lead Software Engg">Lead Software Engg</option>
+                                <option value="Web Tech Architect">Web Tech Architect</option>
+                                <option value="Principal Software Engineer">Principal Software Engineer</option>
+                                <option value="Tech Manager">Tech Manager</option>
+                                <option value="Tech Lead">Tech Lead</option>
+                                <option value="Technology Architect">Technology Architect</option>
+                                <option value="Senior Associate">Senior Associate</option>
+                                <option value="Web Senior Developer">Web Senior Developer</option>
+                                <option value="Mobility Lead(Android)">Mobility Lead(Android)</option>
+                                <option value="Systems Engineer">Systems Engineer</option>
+                            </select>
+                        </div>
+                    </div> -->
+                    <div class="dropdown-list">
+                        <label class="dropdown-name">I want to become a/an:</label>
+                        <div class="dropdown-select">
+                            <select id="become" class="dropbtn">
+                                <option value="">-- Select --</option>
+                                <option value="Java Programmer">Java Programmer</option>
+                                <option value="Full Stack Engineer">Full Stack Engineer</option>
+                                <option value="Software Engineer">Software Engineer</option>
+                                <option value=".Net Progrommer">.Net Progrommer</option>
+                                <option value="DevOps engineer">DevOps engineer</option>
+                                <option value="Web Programmer">Web Programmer</option>
+                                <option value="Intern">Intern</option>
+                                <option value="Devops Engineer">Devops Engineer</option>
+                                <option value="QA Engineer">QA Engineer</option>
+                                <option value="Senior Software Engineer">Senior Software Engineer</option>
+                                <option value="Programmer Analyst">Programmer Analyst</option>
+                                <option value="Software Engineer Trainee">Software Engineer Trainee</option>
+                                <option value="Mobile App Developer(Android)">Mobile App Developer(Android)</option>
+                                <option value="Senior Java Programmer">Senior Java Programmer</option>
+                                <option value="QA Lead">QA Lead</option>
+                                <option value="DB Engineer">DB Engineer</option>
+                                <option value="Principal Architect">Principal Architect</option>
+                                <option value="Web Tech Lead">Web Tech Lead</option>
+                                <option value="Lead Software Engg">Lead Software Engg</option>
+                                <option value="Web Tech Architect">Web Tech Architect</option>
+                                <option value="Principal Software Engineer">Principal Software Engineer</option>
+                                <option value="Tech Manager">Tech Manager</option>
+                                <option value="Tech Lead">Tech Lead</option>
+                                <option value="Technology Architect">Technology Architect</option>
+                                <option value="Senior Associate">Senior Associate</option>
+                                <option value="Web Senior Developer">Web Senior Developer</option>
+                                <option value="Mobility Lead(Android)">Mobility Lead(Android)</option>
+                                <option value="Systems Engineer">Systems Engineer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="dropdown-list">
+                        <button class="dropdown-btn" type="button" onclick="getOptionMp()">Search Mentor</button>
+                        <button class="dropdown-btn" type="button" onclick="resetMp()">Reset</button>
+                    </div>
 
-        <div id="chart" style="z-index:5; position:fixed;"></div>
+                </div>
 
-        <!---------SCRIPTS----------->
+            </div>
+            <div id="no-records" class="display-none">No records found...</div>
+            <div id="chart" style="z-index:5; position:fixed;"></div>
+        </div>
 
         <script src="js/sankey.js"></script>
         <script src="js/server-data.js"></script>
