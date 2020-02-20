@@ -1,5 +1,5 @@
 var education, profession, aim, query;
-
+$('#Cp').show();
 function reset() {
 	location.reload();
 }
@@ -48,7 +48,33 @@ function toggle() {
 		x.style.display = "none";
 	}
 }
+getOptionMp = () => {
+	var a = document.getElementById("place");
+	place = a.options[a.selectedIndex].value;
 
+	// var b = document.getElementById("profession");
+	// profession = b.options[b.selectedIndex].value;
+
+	var c = document.getElementById("become");
+	become = c.options[c.selectedIndex].value;
+	// query = "MATCH p=(e)-[*]->(r) WHERE ";
+	// if (place) {
+	// 	query += "e.place = '" + place + "'";
+	// }
+	
+	// if (become) {
+	// 	query += "and ANY (i IN nodes(p) WHERE i.name = '" + become + "') ";
+	// }
+	// query += " RETURN EXTRACT(x IN NODES(p)[..-1] | x.name), nodes(p), relationships(p)";
+	// console.log(query);
+
+	if (place || become ) {
+		getDataMp();
+	}
+}
+getDataMp = () => {
+	
+}
 function getOption() {
 	var a = document.getElementById("education");
 	education = a.options[a.selectedIndex].value;
@@ -77,7 +103,7 @@ function getOption() {
 	}
 }
 
-function getData() {
+function getData(query) {
 	$.ajax({
 		type: 'POST',
 		dataType: "json",
@@ -108,7 +134,16 @@ function getData() {
 		},
 	});
 }
-
+opentab = (event,id) => {
+	if(id === 'Cp'){
+		$('#Mp').hide();
+		$('#'+id).show();
+	} else{
+		$('#Cp').hide();
+		$('#'+id).show();
+	}
+	
+}
 function parseServerData(rawdata) {
 	let jsondata = rawdata;
 	let nodeIds = [];
