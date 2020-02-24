@@ -614,8 +614,8 @@
 
         </div>
         <div class="tab">
-            <button class="tablinks active" onclick="opentab(event, 'Cp')">Carrier Path</button>
-            <button class="tablinks" onclick="opentab(event, 'Mp')">Mentor Path</button>
+            <button id="a" class="tablinks active" onclick="opentab(event, 'Cp')">Career path</button>
+            <button id="b" class="tablinks" onclick="opentab(event, 'Mp')">Find a mentor</button>
 
         </div>
         <div id="Cp" class="tabcontent">
@@ -722,10 +722,10 @@
 
         <div id="Mp" class="tabcontent">
             <div>
-                <button onclick="toggle()" class="dropdown-btn"
+                <button onclick="toggle1()" class="dropdown-btn"
                     style="position: fixed; right: 0;top: 24px; right: 24px; z-index: 10;">+</button>
 
-                <div class="dropdown-container" id="career-div">
+                <div class="dropdown-container" id="career-div1">
                     <div class="dropdown-list">
                         <label class="dropdown-name">I am from</label>
                         <div class="dropdown-select">
@@ -768,42 +768,6 @@
                             </select>
                         </div>
                     </div>
-                    <!-- <div class="dropdown-list">
-                        <label class="dropdown-name">I want to become:</label>
-                        <div class="dropdown-select">
-                            <select id="profession" class="dropbtn">
-                                <option value="">-- Select --</option>
-                                <option value="Java Programmer">Java Programmer</option>
-                                <option value="Full Stack Engineer">Full Stack Engineer</option>
-                                <option value="Software Engineer">Software Engineer</option>
-                                <option value=".Net Progrommer">.Net Progrommer</option>
-                                <option value="DevOps engineer">DevOps engineer</option>
-                                <option value="Web Programmer">Web Programmer</option>
-                                <option value="Intern">Intern</option>
-                                <option value="Devops Engineer">Devops Engineer</option>
-                                <option value="QA Engineer">QA Engineer</option>
-                                <option value="Senior Software Engineer">Senior Software Engineer</option>
-                                <option value="Programmer Analyst">Programmer Analyst</option>
-                                <option value="Software Engineer Trainee">Software Engineer Trainee</option>
-                                <option value="Mobile App Developer(Android)">Mobile App Developer(Android)</option>
-                                <option value="Senior Java Programmer">Senior Java Programmer</option>
-                                <option value="QA Lead">QA Lead</option>
-                                <option value="DB Engineer">DB Engineer</option>
-                                <option value="Principal Architect">Principal Architect</option>
-                                <option value="Web Tech Lead">Web Tech Lead</option>
-                                <option value="Lead Software Engg">Lead Software Engg</option>
-                                <option value="Web Tech Architect">Web Tech Architect</option>
-                                <option value="Principal Software Engineer">Principal Software Engineer</option>
-                                <option value="Tech Manager">Tech Manager</option>
-                                <option value="Tech Lead">Tech Lead</option>
-                                <option value="Technology Architect">Technology Architect</option>
-                                <option value="Senior Associate">Senior Associate</option>
-                                <option value="Web Senior Developer">Web Senior Developer</option>
-                                <option value="Mobility Lead(Android)">Mobility Lead(Android)</option>
-                                <option value="Systems Engineer">Systems Engineer</option>
-                            </select>
-                        </div>
-                    </div> -->
                     <div class="dropdown-list">
                         <label class="dropdown-name">I want to become a/an:</label>
                         <div class="dropdown-select">
@@ -842,14 +806,14 @@
                     </div>
                     <div class="dropdown-list">
                         <button class="dropdown-btn" type="button" onclick="getOptionMp()">Search Mentor</button>
-                        <button class="dropdown-btn" type="button" onclick="resetMp()">Reset</button>
+                        <button class="dropdown-btn" type="button" onclick="reset()">Reset</button>
                     </div>
 
                 </div>
 
             </div>
             <div id="no-records" class="display-none">No records found...</div>
-            <div id="chart" style="z-index:5; position:fixed;"></div>
+            <div id="mentorData"></div>
         </div>
 
         <script src="js/sankey.js"></script>

@@ -1,43 +1,22 @@
-var education, profession, aim, query;
+var education, profession, aim, query, place, become, mentorQuery;
 $('#Cp').show();
+
 function reset() {
 	location.reload();
 }
 
-function getMentorsData() {
-	$.ajax({
-		type: 'POST',
-		url: 'http://localhost:3000/career-path',
-		contentType: 'application/json',
-		data:  JSON.stringify({
-			"query": "MATCH (p:Person) WHERE (p.ClassX_Place = {location} OR p.ClassXII_Place = {location} OR p.Graduation_Place = {location} OR p.Masters_Place = {location}) AND (p.Job1_Role = {role} OR p.Job2_Role = {role} OR p.Job3_Role = {role} OR p.Job4_Role = {role} OR p.Job5_Role = {role} OR p.Job6_Role = {role}) return p.name, p.Graduation_Degree, p.Masters_Degree, p.Job1_Role, p.Job2_Role, p.Job3_Role, p.Job4_Role, p.Job5_Role, p.Job6_Role",
-			"params": {
-				"location": "Bengaluru",
-				"role": "Software Engineer"
-			}
-		}),
-		success: (response) => {},
-		error: (error) => {
-			console.log("Data failed");
-		},
-		complete: (resp) => {
-			console.log('DB response mentor data: ', resp.responseJSON);
-		},
-	});
-}
-
-getMentorsData();
-
 sortDropDownListByText('education');
 sortDropDownListByText('profession');
 sortDropDownListByText('aim');
+sortDropDownListByText('place');
+sortDropDownListByText('become');
 
 function sortDropDownListByText(selectId) {
-    var foption = $('#'+ selectId + ' option:first');
-    var soptions = $('#'+ selectId + ' option:not(:first)').sort(function(a, b) {
-       return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
-    });
-    $('#' + selectId).html(soptions).prepend(foption);              
+	var foption = $('#' + selectId + ' option:first');
+	var soptions = $('#' + selectId + ' option:not(:first)').sort(function (a, b) {
+		return a.text == b.text ? 0 : a.text < b.text ? -1 : 1
+	});
+	$('#' + selectId).html(soptions).prepend(foption);
 };
 
 function toggle() {
@@ -48,33 +27,64 @@ function toggle() {
 		x.style.display = "none";
 	}
 }
+
+function toggle1() {
+	var x = document.getElementById("career-div1");
+	if (x.style.display === "none") {
+		x.style.display = "block";
+	} else {
+		x.style.display = "none";
+	}
+}
+
 getOptionMp = () => {
 	var a = document.getElementById("place");
 	place = a.options[a.selectedIndex].value;
 
-	// var b = document.getElementById("profession");
-	// profession = b.options[b.selectedIndex].value;
-
 	var c = document.getElementById("become");
 	become = c.options[c.selectedIndex].value;
-	// query = "MATCH p=(e)-[*]->(r) WHERE ";
-	// if (place) {
-	// 	query += "e.place = '" + place + "'";
-	// }
-	
-	// if (become) {
-	// 	query += "and ANY (i IN nodes(p) WHERE i.name = '" + become + "') ";
-	// }
-	// query += " RETURN EXTRACT(x IN NODES(p)[..-1] | x.name), nodes(p), relationships(p)";
-	// console.log(query);
 
-	if (place || become ) {
+	mentorQuery = {
+		"query": "MATCH (p:Person) WHERE (p.ClassX_Place = {location} OR p.ClassXII_Place = {location} OR p.Graduation_Place = {location} OR p.Masters_Place = {location}) AND (p.Job1_Role = {role} OR p.Job2_Role = {role} OR p.Job3_Role = {role} OR p.Job4_Role = {role} OR p.Job5_Role = {role} OR p.Job6_Role = {role}) return p.name, p.Graduation_Degree, p.Masters_Degree, p.Job1_Role, p.Job2_Role, p.Job3_Role, p.Job4_Role, p.Job5_Role, p.Job6_Role",
+		"params": {
+			"location": place,
+			"role": become
+		}
+	}
+
+	if (place && become) {
 		getDataMp();
 	}
 }
 getDataMp = () => {
-	
+
+	$.ajax({
+		type: 'POST',
+		url: 'http://localhost:3000/career-path',
+		contentType: 'application/json',
+		data: JSON.stringify(mentorQuery),
+		success: (response) => {},
+		error: (error) => {
+			console.log("Data failed");
+		},
+		complete: (resp) => {
+			console.log('DB response mentor data: ', resp.responseJSON);
+			let mentors = resp.responseJSON.data;
+			console.log("name: ", mentors)
+			var finalData = '';
+			for (var i = 0; i < mentors.length; i++) {
+				var mentor = mentors[i];
+				var uniqueFields = _.compact(_.uniq(mentor));
+				var mentorData = uniqueFields[0] + ' : ' + uniqueFields[1] + ' -> ' + uniqueFields.slice(2, uniqueFields.length).join(' | ');
+				finalData += '<p>' + mentorData + '</p>'
+			}
+
+			var div = document.getElementById('mentorData');
+			div.innerHTML = finalData;
+		},
+	});
 }
+
 function getOption() {
 	var a = document.getElementById("education");
 	education = a.options[a.selectedIndex].value;
@@ -103,7 +113,7 @@ function getOption() {
 	}
 }
 
-function getData(query) {
+function getData() {
 	$.ajax({
 		type: 'POST',
 		dataType: "json",
@@ -134,16 +144,20 @@ function getData(query) {
 		},
 	});
 }
-opentab = (event,id) => {
-	if(id === 'Cp'){
+opentab = (event, id) => {
+	if (id === 'Cp') {
 		$('#Mp').hide();
-		$('#'+id).show();
-	} else{
+		$('#' + id).show();
+		$('#b').removeClass('active');
+		$('#a').addClass('active');
+	} else {
+		$('#a').removeClass('active');
+		$('#b').addClass('active');
 		$('#Cp').hide();
-		$('#'+id).show();
+		$('#' + id).show();
 	}
-	
 }
+
 function parseServerData(rawdata) {
 	let jsondata = rawdata;
 	let nodeIds = [];
@@ -216,7 +230,6 @@ function parseData(serverData) {
 
 	return convertedData;
 }
-
 
 function getNodeIndex(nodeId) {
 	return nodeMap[nodeId].index;
