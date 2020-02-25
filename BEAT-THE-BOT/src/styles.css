@@ -1,0 +1,155 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+@font-face {
+    font-family: boogaloo;
+    src: url('/assets/fonts/boogaloo/Boogaloo-Regular.ttf');
+}
+
+body {
+    font-family: "boogaloo";
+    padding: 0;
+    margin: 0;
+    outline: none;
+    width: 100%;
+    height: 100vh;
+}
+
+.btn {
+    background: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 28px;
+    padding: 15px 40px;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all .3s ease;
+    outline: none;
+    overflow: hidden;
+}
+
+.btn.btn--start {
+    border: 3px dashed #ffba00;
+    color: #ffba00;
+}
+
+.btn.btn--start:hover {
+    background: #ffba00;
+    box-shadow: 0 0 0.125em rgba(0, 0, 0, 0.2);
+    color: #664a00;
+}
+
+.btn.btn--primary {
+    border: 3px dashed #fff;
+    color: #fff;
+}
+
+.btn.btn--primary:hover {
+    background: #024f9d;
+    box-shadow: 0 0 0.125em rgba(0, 0, 0, 0.2);
+    color: #fff;
+}
+
+.btn.btn--secondary {
+    border: 3px dashed #8cf391;
+    color: #8cf391;
+}
+
+.btn.btn--secondary:hover, .btn.checkedClass {
+    background: #8cf391;
+    box-shadow: 0 0 0.125em rgba(0, 0, 0, 0.2);
+    color: #fff;
+}
+
+.btn.btn--danger {
+    border: 3px dashed #e21f11;
+    color: #e21f11;
+}
+
+.btn.btn--danger:hover, .btn.uncheckedClass {
+    background: #e21f11;
+    box-shadow: 0 0 0.125em rgba(0, 0, 0, 0.2);
+    color: #fff;
+}
+.btn.btn--white {
+    border: 3px dashed #fff;
+    color: #fff;
+}
+.btn.btn--white:hover {
+    background: #fff;
+    box-shadow: 0 0 0.125em rgba(0, 0, 0, 0.2);
+    color: #333;
+}
+.btn.btn--small {
+    padding: 8px 16px;
+    font-size: 12px;
+}
+
+.btn.checkedClass, .btn.uncheckedClass {
+    border: none;
+}
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+
+@keyframes tada {
+    0% {
+        -webkit-transform: scale3d(1, 1, 1);
+        -ms-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+
+    10%,
+    20% {
+        -webkit-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+        -ms-transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+        transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg);
+    }
+
+    30%,
+    50%,
+    70%,
+    90% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+        -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg);
+    }
+
+    40%,
+    60%,
+    80% {
+        -webkit-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+        -ms-transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+        transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg);
+    }
+
+    100% {
+        -webkit-transform: scale3d(1, 1, 1);
+        -ms-transform: scale3d(1, 1, 1);
+        transform: scale3d(1, 1, 1);
+    }
+}
+
+.tada {
+    -webkit-animation-name: tada;
+    animation-name: tada;
+}
+
+.fade-in {
+    animation: fadeIn ease 2s;
+    -webkit-animation: fadeIn ease 2s;
+}
