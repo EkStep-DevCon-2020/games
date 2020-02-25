@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        @font-face {
+            font-family: boogaloo;
+            src: url(assets/fonts/boogaloo/Boogaloo-Regular.ttf);
+        }
+
+        html {
+            height: 100%;
+        }
+
+        body {
+            overflow: auto;
+            padding: 0;
+            margin: 0;
+            outline: none;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #4B4168, #03618ae8);
+            font-family: "boogaloo";
+
+        }
+
+        .bg {
+            animation: slide 3s ease-in-out infinite alternate;
+            background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+            bottom: 0;
+            left: -50%;
+            opacity: .5;
+            position: fixed;
+            right: -50%;
+            top: 0;
+            z-index: -1;
+        }
+
+        .bg2 {
+            animation-direction: alternate-reverse;
+            animation-duration: 4s;
+        }
+
+        .bg3 {
+            animation-duration: 5s;
+        }
+
+        .content {
+            background-color: rgba(255, 255, 255, .8);
+            border-radius: .25em;
+            box-shadow: 0 0 .25em rgba(0, 0, 0, .25);
+            box-sizing: border-box;
+            border-radius: 8px;
+            box-shadow: 0 0 3em rgba(0, 0, 0, 0.3);
+            padding: 80px;
+            text-align: center;
+
+        }
+
+        h1 {
+            font-family: monospace;
+        }
+
+        .button {
+            padding: 16px 42px;
+            box-shadow: 0px 0px 12px -2px rgba(0, 0, 0, 0.5);
+            line-height: 1.25;
+            background: #FC6E51;
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            position: relative;
+            transition: background-color 0.6s ease;
+            overflow: hidden;
+            outline: none;
+            border: none;
+        }
+
+        .button:after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 50%;
+            left: 50%;
+            transform-style: flat;
+            transform: translate3d(-50%, -50%, 0);
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 100%;
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        .button:focus,
+        .button:hover {
+            background: #fb512e;
+        }
+
+        .button:active:after {
+            width: 200px;
+            height: 200px;
+        }
+
+        .button.blue {
+            color: white;
+            font-weight: 600;
+            background: #0080FF;
+        }
+
+        .button.gray {
+            color: #303336;
+            background: #F3F6F9;
+        }
+
+        .combined-btn {
+            margin: 32px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .play-again {
+            margin-bottom: 60px;
+        }
+        @keyframes slide {
+            0% {
+                transform: translateX(-25%);
+            }
+
+            100% {
+                transform: translateX(25%);
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+    <div class="content">
+        <h1 class="play-again">Ready to play?</h1>
+        <h1 class="play-again">Select Language</h1>
+        <div class="combined-btn">
+            <button class="button blue" onclick="enableHinBtn()">Hindi</button>
+            <button class="button" onclick="enableEngBtn()">English</button>
+        </div>
+        <button class="button gray" onclick="submitFunction()" id="replayBtn" style="display: none;">Play</button>
+    </div>
+    <script>
+        localStorage.clear();
+        var mytext = getUrlParam('userId','RQI');
+        console.log(mytext)
+        function enableHinBtn() {
+            localStorage.setItem("language", "hi-IN");
+            document.getElementById('replayBtn').style.display = 'inline-block';
+        }
+
+        function enableEngBtn() {
+            localStorage.setItem("language", "en-US");
+            document.getElementById('replayBtn').style.display = 'inline-block';
+        }
+        function submitFunction()
+        {
+           
+            
+            localStorage.setItem("profileId", mytext)
+            window.location.href ="play_desktop.html"
+        }
+
+        function getUrlParam(parameter, defaultvalue){
+    var urlparameter = defaultvalue;
+    if(window.location.href.indexOf(parameter) > -1){
+        urlparameter = getUrlVars()[parameter];
+        }
+    return urlparameter;
+}
+function getUrlVars() {
+    var vars = {};
+    var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        vars[key] = value;
+    });
+    return vars;
+}
+    </script>
+</body>
+
+</html>

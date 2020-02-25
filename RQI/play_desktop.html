@@ -1,0 +1,32 @@
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <script src="aframe-master.js"></script>
+    <script src="jquery-3.4.1.min.js"></script>
+    <script src="aframe-environment-component.min.js"></script>
+    <script src="https://rawgit.com/protyze/aframe-curve-component/master/dist/aframe-curve-component.min.js"></script>
+    <script src="https://rawgit.com/protyze/aframe-alongpath-component/master/dist/aframe-alongpath-component.min.js"></script>
+<a-scene>
+      <a-camera position="0.884 1.542 0.194">
+        <a-text id="level" position="-0.35 0.5 -0.8"></a-text>
+        <a-text id="score"  position="-0.35 0.7 -0.8"></a-text>
+        <a-cursor></a-cursor>
+    </a-camera>
+    <a-entity id='language-element' text="value: " position="2 4 -5"></a-entity>
+      <a-entity id='spoke-element' text="value: " position="8.5 3.5 -4"></a-entity>
+      <a-entity id="phrase-element" text="value: "></a-entity>
+        <a-entity id="level-element" text="value : Level 1" position="8.5 4.5 -4"></a-entity>
+        <a-entity id="score-element"  position="8.5 2 -4"></a-entity>
+      <a-entity environment="preset: forest; dressingAmount: 4;"></a-entity>    
+
+      
+    </a-scene>
+    <script src="phrases.js"></script>
+    <script src="app_desktop.js"></script>
+    <script src="telemetry_desktop.js"></script>
+  </body>
+</html>
