@@ -8,6 +8,7 @@ app.controller('myCtrl', function($scope, $rootScope, $http) {
     $scope.dikshaImage = "./assets/sunbird_logo.png"
     $scope.board_image = "./assets/blackboard.png"
     $scope.retry_image = "./assets/retry.png"
+    $scope.crying_image = "./assets/crying_img5.gif"
     $scope.hide_starting_page = false
     $scope.hide_talking_teacher = true
     $scope.hide_second_teacher = true
@@ -27,6 +28,7 @@ app.controller('myCtrl', function($scope, $rootScope, $http) {
     $scope.word_list = []
     $scope.hide_retry_button = true
     $scope.recorded_value = ""
+    $scope.hide_cryingImage = true
 
     $scope.search_word_result = []
         //$scope.search_word_thumbnails = [{ pictures: ["assets/03.jpg"], lemma: "jlfds" }, { pictures: ["assets/02.jpg"], lemma: "rewr" }]
@@ -134,7 +136,7 @@ app.controller('myCtrl', function($scope, $rootScope, $http) {
                 }
             });
             $scope.analyzeMessage($scope.recorded_value, function(response) {
-                if (response.result.text_complexity.top5) {
+                if (response.result.text_complexity.top5 && response.result.text_complexity.top5.noun) {
                     $scope.nounsAre = response.result.text_complexity.top5.noun
                     var rhymingList = []
                     var rhymingObj = {}
@@ -200,7 +202,22 @@ app.controller('myCtrl', function($scope, $rootScope, $http) {
 
                 } else {
                     $scope.safeApply()
-                    alert("I'm Sorry.. I couldn't able to get the nouns for you, Please try again")
+                        //alert("I'm Sorry.. I couldn't able to get the nouns for you, Please try again");
+                    var msg = new SpeechSynthesisUtterance();
+                    var voices = window.speechSynthesis.getVoices();
+                    msg.voice = voices[48];
+                    msg.rate = 1
+                    msg.pitch = 1
+                    msg.text = "I apologize, I couldn't  able to find anything, Only i have translated to hindi language I request you to please click on the replay button"
+                    speechSynthesis.speak(msg);
+                    $scope.hide_retry_button = false
+                    $scope.hide_second_teacher = false
+                    $scope.hide_cryingImage = false
+                    $scope.safeApply()
+                    msg.onend = function(e) {
+                        $scope.hide_second_teacher = true
+                        $scope.safeApply()
+                    }
                 }
             })
             $scope.hide_record_stop_button = true;
@@ -247,9 +264,10 @@ app.controller('myCtrl', function($scope, $rootScope, $http) {
         $scope.hide_starting_page = true
         $scope.hide_talking_teacher = false
         $scope.hide_board_image = false
+        var name = $scope.getParameterByName('userName') || ""
+        console.log("name is" + name)
         setTimeout(function() {
-            //$scope.textToSpeech("hello, how are you", true)
-            $scope.textToSpeech("Hello!!! Welcome to devcon event!!  Let's learn about the parts of speech, Now I would request you to read something then i will find words, it's related images, examples and it's meaning for you!")
+            $scope.textToSpeech(`Hello!!! ${name} Welcome to devcon event!!  Let's learn about the vocabulary, Now I would request you to read something`)
         }, 100)
     }
 
@@ -367,7 +385,8 @@ app.controller('myCtrl', function($scope, $rootScope, $http) {
         if ($scope.word_list.length > 0) {
             message = `Hey My dear student! I found these are the results for you!, The words which i got are ${$scope.nounsAre.toString()}, `;
         } else {
-            message = "I apologize, I couldn't  able to find anything, I request you to please click on the replay button"
+            message = "I apologize, I couldn't  able to find anything, Only i have translated to hindi language, I request you to please click on the replay button"
+            $scope.hide_cryingImage = false
         }
 
 
@@ -397,11 +416,22 @@ app.controller('myCtrl', function($scope, $rootScope, $http) {
         $scope.hide_wave_image = true
         $scope.hide_retry_button = true
         $scope.hide_recorded_text = true
+        $scope.hide_cryingImage = true
         $scope.word_list = []
         $scope.safeApply()
 
 
 
+    }
+
+    $scope.getParameterByName = function(name, url) {
+        if (!url) url = window.location.href;
+        name = name.replace(/[\[\]]/g, '\\$&');
+        var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+            results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
     var voices = window.speechSynthesis.getVoices();
 });
